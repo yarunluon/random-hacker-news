@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import React, { Component } from 'react';
 import getter from 'lodash/get';
 import times from 'lodash/times';
-import { ProgressBar, Table } from 'react-bootstrap';
+import { Col, Grid, PageHeader, Panel, ProgressBar, Row, Table } from 'react-bootstrap';
 
 import logo from './logo.svg';
 import './App.css';
@@ -70,8 +70,8 @@ class App extends Component {
 
       return (
         <tr key={`key-${id}`}>
-          <td>{title}</td>
-          <td>{url}</td>
+          <td><a target="_blank" href={url}>{title}</a></td>
+          <td><a target="_blank" href={url}>{url}</a></td>
           <td>{time}</td>
           <td>{score}</td>
           <td>{by}</td>
@@ -80,31 +80,48 @@ class App extends Component {
       )
     })
 
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        { loading < 100 ? <ProgressBar now={loading} label={`${loading}%`} /> : null }
-        <Table>
+    const progressBar = loading < 100
+      ? (
+        <ProgressBar active now={loading} label={`${loading}%`} />
+      ) : null
+
+    const storiesJsx = loading >= 100
+      ? (
+        <Table responsive striped bordered hover>
           <thead>
             <tr>
               <th>Title</th>
               <th>Url</th>
-              <th>time</th>
-              <th>score</th>
-              <th>by</th>
-              <th>karma</th>
+              <th>Time</th>
+              <th>Score</th>
+              <th>By</th>
+              <th>Karma</th>
             </tr>
           </thead>
           <tbody>
             {storyRows}
           </tbody>
         </Table>
+      ) : null;
+
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h2>10 Random Top Hacker News Stories</h2>
+        </div>
+        <Grid>
+          <Row>
+            <Col xs={12} md={12}>
+              {progressBar}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} md={12}>
+              {storiesJsx}
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
