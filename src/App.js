@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import React, { Component } from 'react';
 import getter from 'lodash/get';
 import times from 'lodash/times';
-import { Button, Col, Glyphicon, Grid, PageHeader, Row } from 'react-bootstrap';
+import { Col, Grid, PageHeader, Row } from 'react-bootstrap';
 
 import ProgressBar from './ProgressBar';
 import Story from './Story';
